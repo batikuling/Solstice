@@ -26,6 +26,7 @@ public:
     void remove(E& entity);
     void remove_by_id(unsigned int id);
     void clear();
+    bool has_id(unsigned int id);
     E&   get_by_id(unsigned int id);
 
 private:
@@ -66,6 +67,12 @@ void IDGroup<E>::remove_by_id(unsigned int id){
         throw std::out_of_range("\nKey does not exist!\n");
 }
 
+template <typename E>
+bool IDGroup<E>::has_id(unsigned int id){
+    if (_entity_map.count(id))
+        return true;
+    return false;
+}
 
 template <typename E>
 E& IDGroup<E>::get_by_id(unsigned int id){
