@@ -1,3 +1,11 @@
+files/*
+fonts/*
+images/*
+solstice.cbp
+solstice.depend
+solstice.layout
+
+
 #################
 ## Eclipse
 #################

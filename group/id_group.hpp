@@ -4,6 +4,7 @@
 
 #include <unordered_map>
 #include <stdexcept>
+#include <string>
 
 #include "group.hpp"
 
@@ -21,21 +22,24 @@ template <typename E>
 class IDGroup : public Group<E>{
 public:
     //replaces Group<>.add(E)
-    void add(E& entity, unsigned int id);
+    void add(E& entity, int id);
 
     void remove(E& entity);
-    void remove_by_id(unsigned int id);
+    void remove_by_id(int id);
     void clear();
-    bool has_id(unsigned int id);
-    E&   get_by_id(unsigned int id);
+    bool has_id(int id);
+    E&   get_by_id(int id);
 
 private:
-    std::unordered_map<unsigned int, E> _entity_map;
+    std::unordered_map<int, E> _entity_map;
 };
 
 
 template <typename E>
-void IDGroup<E>::add(E& entity, unsigned int id){
+void IDGroup<E>::add(E& entity, int id){
+    if (_entity_map.count(id))
+        throw std::runtime_error("IDGroup<E>::add(E& entity, int id) error: "
+            "Creep with id number " + std::to_string(id) + " already exist.");
     Group<E>::add(entity);
     _entity_map.insert(std::make_pair(id, entity));
 }
@@ -45,38 +49,42 @@ template <typename E>
 void IDGroup<E>::remove(E& entity){
     Group<E>::remove(entity);
 
-    unsigned int id;
+    int id;
     for (auto& pair : _entity_map){
         if (pair.second == entity){
             _entity_map.erase(pair.first);
             return;
         }
         else
-            throw std::out_of_range("\nKey does not exist!\n");
+            throw std::runtime_error("IDGroup<E>::remove(E& entity) error: entity does not exist");
     }
 }
 
 
 template <typename E>
-void IDGroup<E>::remove_by_id(unsigned int id){
+void IDGroup<E>::remove_by_id(int id){
     if (_entity_map.count(id)){
         Group<E>::remove(_entity_map[id]);
         _entity_map.erase(id);
     }
     else
-        throw std::out_of_range("\nKey does not exist!\n");
+        throw std::runtime_error("IDGroup<E>::remove_by_id error: id " + std::to_string(id) + " does not exist.");
 }
 
 template <typename E>
-bool IDGroup<E>::has_id(unsigned int id){
+bool IDGroup<E>::has_id(int id){
     if (_entity_map.count(id))
         return true;
     return false;
 }
 
 template <typename E>
-E& IDGroup<E>::get_by_id(unsigned int id){
-    return _entity_map.at(id);
+E& IDGroup<E>::get_by_id(int id){
+    if (_entity_map.count(id)){
+        return _entity_map.at(id);
+    }
+    else
+        throw std::runtime_error("IDGroup<E>::remove_by_id error: id " + std::to_string(id) + " does not exist.");
 }
 
 template <typename E>
