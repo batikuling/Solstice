@@ -1,6 +1,7 @@
 #include <functional>
 #include <iostream>
 #include <stdexcept>
+#include <string>
 
 #include "grid_map.hpp"
 #include "../random.hpp"
@@ -23,7 +24,9 @@ void GridMap::set_blocked(const sf::Vector2i& point, bool blocked){
 
 bool GridMap::is_blocked(const sf::Vector2i& point){
     if (point.x > _size.x or point.y > _size.y)
-        throw std::runtime_error("GridMap::is_blocked(const sf::Vector2i& point) error: Given point does not exist in the grid map.");
+        throw std::runtime_error(std::string("GridMap::is_blocked(const sf::Vector2i& point) error: Given point does not exist in the grid map. ") +
+                                 std::string("Given: ") + std::to_string(point.x) + std::string(" ") + std::to_string(point.y) +
+                                std::string("Size is: ") + std::to_string(_size.x) + std::string(" ") + std::to_string(_size.y));
     return _blocked_map[point];
 }
 
