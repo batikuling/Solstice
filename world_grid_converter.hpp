@@ -21,7 +21,7 @@ namespace sol{
 class WorldGridConverter{
 public:
 
-    WorldGridConverter(int x = 32, int y = 32): _tile_size(x, y){}
+    WorldGridConverter(int x, int y): _tile_size(x, y){}
 
     template <typename T>
     sf::Vector2<T> world_to_grid(const sf::Vector2<T>& world_position) const;
