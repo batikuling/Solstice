@@ -14,11 +14,16 @@ void Container::update(sf::Time& time_passed){
     }
 }
 
-bool Container::handle_event(sf::Event& event){
+
+bool Container::handle_event(sf::Event& event, sf::RenderWindow& window){
+
+    sf::Vector2i pixel_pos = sf::Mouse::getPosition(window);
+    sf::Vector2f world_position = window.mapPixelToCoords(pixel_pos);
+
     if (event.type == sf::Event::KeyPressed or event.type == sf::Event::KeyPressed or
         event.type == sf::Event::TextEntered){
         if (_focused_child){
-            _focused_child->handle_event(event);
+            _focused_child->handle_event(event, window);
             return true;
         }
     }
@@ -26,31 +31,19 @@ bool Container::handle_event(sf::Event& event){
     else if (event.type == sf::Event::MouseButtonPressed or event.type == sf::Event::MouseButtonReleased or
              event.type == sf::Event::MouseWheelMoved){
 
-        int mouse_x = 0;
-        int mouse_y = 0;
-
-        if (event.type == sf::Event::MouseWheelMoved){
-            mouse_x = event.mouseWheel.x;
-            mouse_y = event.mouseWheel.y;
-        }
-        else{
-            mouse_x = event.mouseButton.x;
-            mouse_y = event.mouseButton.y;
-        }
-
         bool found_clicked_child = false;
 
         for (auto& item : _components){
             auto widget_rect = item.second->getGlobalBounds();
 
-            if (widget_rect.contains(mouse_x, mouse_y)){
+            if (widget_rect.contains(world_position)){
                 // take care of focuses
                 if (_focused_child)
                     _focused_child->set_focus(false);
 
                 item.second->set_focus(true);
                 _focused_child = item.second;
-                item.second->handle_event(event);
+                item.second->handle_event(event, window);
                 found_clicked_child = true;
                 return true;
             }
@@ -66,14 +59,12 @@ bool Container::handle_event(sf::Event& event){
     }
 
     else if (event.type == sf::Event::MouseMoved){
-        int mouse_x = event.mouseMove.x;
-        int mouse_y = event.mouseMove.y;
 
         bool found_hovered_child = false;
 
         for (auto& item : _components){
             auto widget_rect = item.second->getGlobalBounds();
-            if (widget_rect.contains(mouse_x, mouse_y)){
+            if (widget_rect.contains(world_position)){
                 if (_hovered_child and item.second != _hovered_child)
                     _hovered_child->set_hover(false);
                 _hovered_child = item.second;

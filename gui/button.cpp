@@ -69,7 +69,7 @@ void Button::draw(sf::RenderTarget& target, sf::RenderStates states) const{
     target.draw(_text, states);
 }
 
-bool Button::handle_event(sf::Event& event){
+bool Button::handle_event(sf::Event& event, sf::RenderWindow& window){
 
     if (event.type == sf::Event::MouseButtonPressed and event.mouseButton.button == sf::Mouse::Left)
         _handler(shared_from_this());

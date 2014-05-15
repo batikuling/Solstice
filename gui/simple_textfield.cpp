@@ -34,7 +34,7 @@ void SimpleTextfield::draw(sf::RenderTarget& target, sf::RenderStates states) co
 }
 
 
-bool SimpleTextfield::handle_event(sf::Event& event){
+bool SimpleTextfield::handle_event(sf::Event& event, sf::RenderWindow& window){
 
     if (event.type == sf::Event::TextEntered){
         if (event.text.unicode >= 32 and event.text.unicode <= 126){

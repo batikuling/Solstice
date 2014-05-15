@@ -17,7 +17,7 @@ public:
     void            grid(Component::Ptr& component, int col, int row);
     void            update(sf::Time& time_passed);
     void            draw(sf::RenderTarget& target, sf::RenderStates states) const;
-    bool            handle_event(sf::Event& event);
+    bool            handle_event(sf::Event& event, sf::RenderWindow& window);
     sf::FloatRect   getGlobalBounds() const;
 
     void            move(const sf::Vector2f& vec);

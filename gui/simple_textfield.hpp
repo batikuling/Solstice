@@ -15,7 +15,7 @@ public:
                     SimpleTextfield(int width, const sf::Font& font);
     void            update(sf::Time& time_passed);
     void            draw(sf::RenderTarget& target, sf::RenderStates states) const;
-    bool            handle_event(sf::Event& event);
+    bool            handle_event(sf::Event& event, sf::RenderWindow& window);
     sf::FloatRect   getGlobalBounds() const;
     std::string     get_string();
 

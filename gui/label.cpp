@@ -28,7 +28,7 @@ void Label::draw(sf::RenderTarget& target, sf::RenderStates states) const{
     target.draw(_text, states);
 }
 
-bool Label::handle_event(sf::Event& event){
+bool Label::handle_event(sf::Event& event, sf::RenderWindow& window){
     return true;
 }
 

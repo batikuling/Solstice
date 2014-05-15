@@ -19,7 +19,7 @@ public:
     virtual                 ~Component();
     virtual void            update(sf::Time& time_passed) = 0;
     virtual void            draw(sf::RenderTarget& target, sf::RenderStates states) const = 0;
-    virtual bool            handle_event(sf::Event& event) = 0;
+    virtual bool            handle_event(sf::Event& event, sf::RenderWindow& window) = 0;
     virtual sf::FloatRect   getGlobalBounds() const = 0;
     void                    set_focus(bool focus);
     bool                    has_focus() const;

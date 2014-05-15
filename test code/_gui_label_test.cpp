@@ -62,13 +62,15 @@ int main(void){
     //sol::gui::Button& button2_ref = static_cast<sol::gui::Button&>(*button2);
     //button2_ref.set_hover_texture(button_texture_hover);
     static_cast<sol::gui::Button&>(*button2).set_hover_texture(button_texture_hover);
+    static_cast<sol::gui::Button&>(*button3).set_hover_texture(button_texture_hover);
+    static_cast<sol::gui::Button&>(*button4).set_hover_texture(button_texture_hover);
 
     root.grid(button2, 0, 0);
     root.grid(button3, 0, 1);
     root.grid(button4, 0, 2);
     root.grid(textfield1, 0, 3);
 
-    root.move(20, 80);
+    root.move(200, 200);
 
     while (window.isOpen()){
 
@@ -76,7 +78,7 @@ int main(void){
         while (window.pollEvent(event)){
             if (event.type == sf::Event::Closed)
                 window.close();
-            root.handle_event(event);
+            root.handle_event(event, window);
         } // end events
 
     sf::Time time_passed = clock.restart();

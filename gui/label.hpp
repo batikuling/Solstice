@@ -17,7 +17,7 @@ public:
     Label(const std::string& text, sf::Font& font);
     void            update(sf::Time& time_passed);
     void            draw(sf::RenderTarget& target, sf::RenderStates states) const;
-    bool            handle_event(sf::Event& event);
+    bool            handle_event(sf::Event& event, sf::RenderWindow& window);
     sf::FloatRect   getGlobalBounds() const;
     //void            set_text(const std::string& text);
     std::string&    get_text();
