@@ -13,6 +13,7 @@ namespace gui{
 
 class Label : public Component{
 public:
+    using Ptr = std::shared_ptr<Label>;
     Label(const std::string& text, sf::Font& font, const sf::Color& color);
     Label(const std::string& text, sf::Font& font);
     void            update(sf::Time& time_passed);

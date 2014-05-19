@@ -8,7 +8,9 @@ namespace sol{
 namespace gui{
 
 
-Button::Button(const std::string& str, const sf::Font& font, const std::function<void(const Component::Ptr&)>& handler, const sf::Color& color):
+Button::Button(const std::string& str, const sf::Font& font,
+               const std::function<void(const Component::Ptr&)>& handler,
+               const sf::Color& color):
     _handler(handler), _text(str, font), _type(_ButtonType::COLORED){
 
     _text.setColor(sf::Color::White);
@@ -33,7 +35,9 @@ Button::Button(const std::string& str, const sf::Font& font, const std::function
 }
 
 
-Button::Button(const std::string& str, const sf::Font& font, const std::function<void(const Component::Ptr&)>& handler, const sf::Texture& texture):
+Button::Button(const std::string& str,
+               const sf::Font& font, const std::function<void(const Component::Ptr&)>& handler,
+               const sf::Texture& texture):
     _handler(handler), _text(str, font), _type(_ButtonType::TEXTURED), _sprite(texture), _sprite_hover(texture){
 
     _text.setColor(sf::Color::White);
@@ -47,9 +51,24 @@ Button::Button(const std::string& str, const sf::Font& font, const std::function
     _text.move(x, y);
 }
 
+
+Button::Button(const std::string& str, const sf::Font& font,
+               const std::function<void(const Component::Ptr&)>& handler,
+               const sf::Texture& texture, const sf::Texture& hover_texture):
+    Button::Button(str, font, handler, texture){
+    _sprite_hover.setTexture(hover_texture);
+}
+
+
+void Button::set_handler(std::function<void(const Component::Ptr&)>& handler){
+    _handler = handler;
+}
+
+
 void Button::update(sf::Time& time_passed){
     return;
 }
+
 
 void Button::draw(sf::RenderTarget& target, sf::RenderStates states) const{
     states.transform *= getTransform();
@@ -69,6 +88,7 @@ void Button::draw(sf::RenderTarget& target, sf::RenderStates states) const{
     target.draw(_text, states);
 }
 
+
 bool Button::handle_event(sf::Event& event, sf::RenderWindow& window){
 
     if (event.type == sf::Event::MouseButtonPressed and event.mouseButton.button == sf::Mouse::Left)
@@ -76,6 +96,7 @@ bool Button::handle_event(sf::Event& event, sf::RenderWindow& window){
 
     return true;
 }
+
 
 sf::FloatRect Button::getGlobalBounds() const{
     auto pos = getPosition();
@@ -92,6 +113,7 @@ sf::FloatRect Button::getGlobalBounds() const{
 void Button::set_hover_texture(const sf::Texture& texture){
     _sprite_hover.setTexture(texture);
 }
+
 
 void Button::set_hover_color(const sf::Color& color){
     _rect_shape_hover.setFillColor(color);

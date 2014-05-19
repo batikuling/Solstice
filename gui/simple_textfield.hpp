@@ -12,6 +12,8 @@ namespace gui{
 
 class SimpleTextfield : public Component {
 public:
+    using Ptr = std::shared_ptr<SimpleTextfield>;
+
                     SimpleTextfield(int width, const sf::Font& font);
     void            update(sf::Time& time_passed);
     void            draw(sf::RenderTarget& target, sf::RenderStates states) const;

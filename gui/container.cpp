@@ -94,7 +94,7 @@ void Container::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     }
 }
 
-void Container::grid(Component::Ptr& component, int col, int row){
+void Container::grid(const Component::Ptr& component, int col, int row){
     auto rect = component->getGlobalBounds();
     sf::Vector2i component_size(rect.width, rect.height);
 

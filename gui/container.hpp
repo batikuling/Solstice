@@ -14,7 +14,7 @@ namespace gui{
 
 class Container : public Component {
 public:
-    void            grid(Component::Ptr& component, int col, int row);
+    void            grid(const Component::Ptr& component, int col, int row);
     void            update(sf::Time& time_passed);
     void            draw(sf::RenderTarget& target, sf::RenderStates states) const;
     bool            handle_event(sf::Event& event, sf::RenderWindow& window);

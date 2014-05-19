@@ -13,9 +13,19 @@ namespace gui{
 
 class Button : public Component{
 public:
-    Button(const std::string& str, const sf::Font& font, const std::function<void(const Component::Ptr&)>& handler, const sf::Color& = sf::Color::Blue);
-    Button(const std::string& str, const sf::Font& font, const std::function<void(const Component::Ptr&)>& handler, const sf::Texture& texture);
-    void            set_handler(std::function<void(Component::Ptr&)>& handler);
+    using Ptr = std::shared_ptr<Button>;
+
+    Button(const std::string& str, const sf::Font& font,
+           const std::function<void(const Component::Ptr&)>& handler,
+           const sf::Color& = sf::Color::Blue);
+    Button(const std::string& str, const sf::Font& font,
+           const std::function<void(const Component::Ptr&)>& handler,
+           const sf::Texture& texture);
+    Button(const std::string& str, const sf::Font& font,
+           const std::function<void(const Component::Ptr&)>& handler,
+           const sf::Texture& texture, const sf::Texture& hover_texture);
+
+    void            set_handler(std::function<void(const Component::Ptr&)>& handler);
     void            update(sf::Time& time_passed);
     void            draw(sf::RenderTarget& target, sf::RenderStates states) const;
     bool            handle_event(sf::Event& event, sf::RenderWindow& window);
@@ -27,13 +37,13 @@ public:
 public:
     enum class _ButtonType {TEXTURED, COLORED};
 
-    std::function<void(const Component::Ptr&)>   _handler;
-    _ButtonType                             _type;
-    sf::Text                                _text;
-    sf::RectangleShape                      _rect_shape;
-    sf::RectangleShape                      _rect_shape_hover;
-    sf::Sprite                              _sprite;
-    sf::Sprite                              _sprite_hover;
+    std::function<void(const Component::Ptr&)>      _handler;
+    _ButtonType                                     _type;
+    sf::Text                                        _text;
+    sf::RectangleShape                              _rect_shape;
+    sf::RectangleShape                              _rect_shape_hover;
+    sf::Sprite                                      _sprite;
+    sf::Sprite                                      _sprite_hover;
 
 
 };
