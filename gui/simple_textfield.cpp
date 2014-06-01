@@ -8,7 +8,9 @@ namespace sol{
 namespace gui{
 
 SimpleTextfield::SimpleTextfield(int width, const sf::Font& font):
-    _rect_shape(sf::Vector2f(width, 45)), _text("", font){
+    _rect_shape(sf::Vector2f(width, 45)),
+    _text("", font),
+    _cursor_rect(sf::Vector2f(2, 39)){
 
     _rect_shape.setFillColor(sf::Color(40, 40, 40));
     _rect_shape.setOutlineColor(sf::Color(100, 100, 100));
@@ -16,6 +18,8 @@ SimpleTextfield::SimpleTextfield(int width, const sf::Font& font):
 
     auto text_bounds = _text.getLocalBounds();
     _text.setOrigin(text_bounds.left, text_bounds.top);
+
+    _cursor_rect.move(0, 3);
 
 }
 
@@ -31,6 +35,7 @@ void SimpleTextfield::draw(sf::RenderTarget& target, sf::RenderStates states) co
 
     target.draw(_rect_shape, states);
     target.draw(_text, states);
+    target.draw(_cursor_rect, states);
 }
 
 
@@ -54,6 +59,9 @@ bool SimpleTextfield::handle_event(sf::Event& event, sf::RenderWindow& window){
             _text.setString(str.substr(0, str.size() - 1));
         }
     }
+
+    auto text_bounds = _text.getGlobalBounds();
+    _cursor_rect.setPosition(text_bounds.left + text_bounds.width, 3);
 
     return true;
 }

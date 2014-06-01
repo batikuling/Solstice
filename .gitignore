@@ -5,6 +5,7 @@ solstice.cbp
 solstice.depend
 solstice.layout
 
+lib/*
 
 #################
 ## Eclipse
